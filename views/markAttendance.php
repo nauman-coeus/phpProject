@@ -7,6 +7,19 @@
 
 	if(Sessions::getRestriction())
 		header('location:addEmployee.php');
+
+	$time_in = '';
+	$time_out = '';
+	$msg = '';
+
+	if(isset($_GET['msg']))
+		$msg = $_GET['msg'];
+
+	if(isset($_GET['time_in'])) 
+		$time_in = $_GET['time_in'];
+
+	if(isset($_GET['time_out'])) 
+		$time_out = $_GET['time_out'];
 ?>
 
 <!DOCTYPE html>
@@ -32,15 +45,19 @@
 		<div class="col-40">&nbsp</div>
 		<div class="col-20 blackBox">
 			<div class="row">
-				<input type="submit" value="Mark Time In" class="orangeBtn">
-				<br><br>
-				<h3>Time In :</h3>
+				<form method="GET" action="../controllers/c_markAttendance.php">
+					<input type="submit" value="Mark Time In" class="orangeBtn" name="time_in">
+				</form>
+					<br><br>
+				<h3>Time In : <?=$time_in?></h3>
 			</div>
 			<hr>
 			<div class="row">
-				<input type="submit" value="Mark Time Out" class="orangeBtn">
-				<br><br>
-				<h3>Time Out :</h3>
+				<form method="GET" action="../controllers/c_markAttendance.php">
+					<input type="submit" value="Mark Time Out" class="orangeBtn" name="time_out">
+				</form>
+					<br><br>
+					<h3>Time Out : <?=$time_out?></h3>
 			</div>
 			<hr>
 			<div class="row">

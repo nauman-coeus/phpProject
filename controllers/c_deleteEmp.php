@@ -21,3 +21,5 @@ if(!$retrieve->retrieveEmp())
 
 $delete = new Delete();
 $delete->deleteEmp($_GET['emp_id']);
+
+header('location:../views/employeeList.php?msg=Deletion Successful');

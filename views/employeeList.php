@@ -10,7 +10,7 @@
 		header('location:markAttendance.php');
 
 	$retrieve = new Retrieve();
-	$emp = $retrieve->retrieveEmployees();
+	$emp = $retrieve->retrieveEmp();
 ?>
 
 <!DOCTYPE html>

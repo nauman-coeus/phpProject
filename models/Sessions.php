@@ -3,29 +3,29 @@
 
 class Sessions
 {
-	public static function startSession($var)
+	public static function startSession($id=false, $desig=false)
 	{
 		session_start();
-		$_SESSION['login'] = true;
+		$_SESSION['emp_id'] = $id;
 
-		if($var == 'HR') 
+		if($desig == 'HR')
 			$_SESSION['hr'] = true;
 	}
 
 	public static function getSession()
 	{
-		if(isset($_SESSION['login']))
-			return true;
-		else
-			return false;
+		if(isset($_SESSION['emp_id']))
+			return $_SESSION['emp_id'];
+
+		return false;
 	}
 
 	public static function getRestriction()
 	{
 		if(isset($_SESSION['hr']))
-			return true;
-		else
-			return false;
+			return $_SESSION['hr'];
+
+		return false;
 	}
 
 	public static function logoutUser()

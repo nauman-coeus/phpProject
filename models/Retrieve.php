@@ -23,21 +23,26 @@ class Retrieve
 		return self::$conn->query($sql);
 	}
 
-	public function retrieveEmployees()
-	{
-		$sql = "SELECT emp_id, emp_name FROM `Employees`";
-		return self::$conn->query($sql);
-	}
-
 	public function retrieveManagers()
 	{
 		$sql = "SELECT * FROM Employees WHERE desig_id = 2";
 		return self::$conn->query($sql);
 	}
 
-	public function retrieveEmp($emp_id)
+	public function retrieveEmp($emp_id = null)
 	{
-		$sql = "SELECT * FROM Employees WHERE emp_id = $emp_id;";
+		$sql = '';
+
+		if(!emp_id)
+			$sql = "SELECT * FROM Employees WHERE emp_id = $emp_id;";
+		else
+			$sql = "SELECT emp_id, emp_name FROM `Employees`";
+
 		return self::$conn->query($sql);
+	}
+
+	public function timeIn($day)
+	{
+		
 	}
 }

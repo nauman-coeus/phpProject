@@ -1,23 +1,36 @@
 <?php
 
 require_once 'DBConnection.php';
+require_once 'Retrieve.php';
 
 class Update
 {
-	private $conn = null;
+	private $conn;
+	private $msg = null;
 
 	public function __construct()
 	{
-		$conn = DBConnection::connect();
+		$this->conn = DBConnection::connect();
 	}
 
 	public function __destruct()
 	{
-		$conn = null;
+		$this->conn = null;
+		$this->msg = null;
+	}
+
+	public function getMessage()
+	{
+		return $this->msg;
 	}
 
 	public function updateEmp($emp_id)
 	{
 		echo $emp_id;
+	}
+
+	public function addTimeout()
+	{
+		
 	}
 }

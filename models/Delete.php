@@ -4,21 +4,21 @@ require_once 'DBConnection.php';
 
 class Delete
 {
-	private static $conn = null;
+	private $conn = null;
 
 	public function __construct()
 	{
-		self::$conn = DBConnection::connect();
+		$this->conn = DBConnection::connect();
 	}
 
 	public function __destruct()
 	{
-		self::$conn = null;
+		$this->conn = null;
 	}
 
 	public function deleteEmp($emp_id)
 	{
 		$sql = "DELETE FROM `Employees` WHERE emp_id = $emp_id;";
-		self::$conn->query($sql);
+		$this->conn->query($sql);
 	}
 }
