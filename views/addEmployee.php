@@ -56,6 +56,14 @@
 					<input type="edit">
 				</div>
 				<div class="row">
+					<h3>Salary</h3>
+					<input type="number">
+				</div>
+				<div class="row">
+					<h3>Password:</h3>
+					<input type="password" name="emp_password">
+				</div>
+				<div class="row">
 					<h3>Department</h3>
 					<select name="emp_dept">
 						<?php 
@@ -66,12 +74,8 @@
 					</select>
 				</div>
 				<div class="row">
-					<h3>Salary</h3>
-					<input type="number">
-				</div>
-				<div class="row">
 					<h3>Profile Picture</h3>
-					<input type="password">
+					<input type="file">
 				</div>
 				<div class="row">
 					<h3>Boss</h3>

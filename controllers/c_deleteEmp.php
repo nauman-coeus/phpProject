@@ -12,7 +12,7 @@ if(!Sessions::getRestriction())
 	header('location:markAttendance.php');
 
 if(!isset($_GET['emp_id']))
-	header('location:../views/addEmployee.php?msg=! Error Deleting Employee');
+	header('location:../views/addEmployee.php?msg=! Please Enter Employee Id');
 
 $retrieve = new Retrieve();
 

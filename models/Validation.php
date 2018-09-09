@@ -3,12 +3,16 @@
 class Validation
 {
 	private $flag = true;
+	public $msg = '';
 
-	public static function loginValidate($usr_email, $usr_password)
+	public function __construct()
 	{
-		if($usr_email == '' || $usr_password == '')
-			$this->flag = false;
+		$flag = false;
+		$msg = '';
+	}
 
-		return $this->flag;
+	public function empValidation()
+	{
+
 	}
 }
