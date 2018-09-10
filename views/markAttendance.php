@@ -16,7 +16,10 @@
 
 	date_default_timezone_set("Asia/Karachi");
 	$retrieve = new Retrieve();
-	$result = $retrieve->retrieveAttendance(date('d-m-y'), Sessions::getSession())->fetch_assoc();
+	$result = $retrieve->retrieveAttendance(date('d-m-y'), Sessions::getSession());
+
+	if($result)
+		$result = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>

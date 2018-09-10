@@ -1,6 +1,5 @@
 <?php
 
-
 class Sessions
 {
 	public static function startSession($id=false, $desig=false)
@@ -8,7 +7,7 @@ class Sessions
 		session_start();
 		$_SESSION['emp_id'] = $id;
 
-		if($desig == 'HR')
+		if($desig == 3)
 			$_SESSION['hr'] = true;
 	}
 

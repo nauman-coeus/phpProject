@@ -1,19 +1,20 @@
 <?php
-	session_start();
-	require_once '../models/Sessions.php';
-	require_once '../models/Retrieve.php';
 
-	if(!Sessions::getSession())
-		header('location:login.php?err=Please Login');
+session_start();
+require_once '../models/Sessions.php';
+require_once '../models/Retrieve.php';
 
-	if(!Sessions::getRestriction())
-		header('location:markAttendance.php');
+if(!Sessions::getSession())
+	header('location:login.php?err=Please Login');
 
-	$retireve = new Retrieve();
+if(!Sessions::getRestriction())
+	header('location:markAttendance.php');
 
-	$desig = $retireve->retrieveDesignations();
-	$dept = $retireve->retrieveDepartments();
-	$emp = $retireve->retrieveManagers();
+$retireve = new Retrieve();
+
+$desig = $retireve->retrieveDesignations();
+$dept = $retireve->retrieveDepartments();
+$emp = $retireve->retrieveManagers();
 
 ?>
 
@@ -48,6 +49,7 @@
 			</div>
 
 			<div class="col-60">
+				<form action="../controllers/c_addEmp.php" method="POST">
 				<div class="row">
 					<h3>Name</h3>
 					<input type="text">
@@ -81,6 +83,7 @@
 				<div class="row">
 					<h3>Boss</h3>
 					<select>
+						<option value="null">-- Select --</option>
 						<?php 
 							foreach ($emp as $key) {
 								echo '<option value="'. $key['emp_id'] .'">'. $key['emp_name'] .'</option>';

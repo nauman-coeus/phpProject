@@ -46,13 +46,15 @@
 			<div class="col-60">
 				<table>
 					<tbody>
-					<?foreach($emp as $key):?>
-						<tr>
-							<td><?=$key['emp_name']?></td>
-							<td><a href="editEmployee.php?emp_id=<?=$key['emp_id']?>">Edit</a></td>
-							<td><a href="../controllers/c_deleteEmp.php?emp_id=<?=$key['emp_id']?>">Delete</a></td>
-						</tr>
-					<?endforeach;?>
+						<?if($emp):?>
+							<?foreach($emp as $key):?>
+								<tr>
+									<td><?=$key['emp_name']?></td>
+									<td><a href="editEmployee.php?emp_id=<?=$key['emp_id']?>">Edit</a></td>
+									<td><a href="../controllers/c_deleteEmp.php?emp_id=<?=$key['emp_id']?>">Delete</a></td>
+								</tr>
+							<?endforeach;?>
+						<?endif;?>
 					</tbody>
 				</table>
 			</div>

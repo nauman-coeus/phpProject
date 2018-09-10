@@ -5,12 +5,13 @@ require_once 'Sessions.php';
 
 class Create
 {
-	private $conn = null;
-	private $msg = null;
+	private $conn;
+	private $msg;
 
 	public function __construct()
 	{
 		$this->conn = DBConnection::connect();
+		$this->msg = null;
 	}
 
 	public function __destruct()
@@ -53,6 +54,20 @@ class Create
 
 		} else {
 			$this->msg = "You have already Enter your Time In";
+		}
+	}
+
+	public function createEmp($name, $email, $salary, $password, $dept, $pic, $boss, $desig)
+	{
+		$validate = new Validation();
+		$retrieve = new Retrieve();
+
+		if($retrieve()->retrieveEmp()->fetch_assoc())
+			$this->msg = "Email Already Exists";
+		else if(!$validate->empValidation($name, $email, $salary, $password, $dept, $pic, $boss, $desig))
+			$this->msg = $validate->getMessage();
+		else {
+			
 		}
 	}
 }

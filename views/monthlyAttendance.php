@@ -17,14 +17,12 @@
 		$day = DateTime::createFromFormat('m', $l)->format('m');
 
 		$result = $retrieve->monthlyCount($day);
-		foreach ($result as $key) {
-			$monthly[DateTime::createFromFormat('m', $l)->format('M')][$key['att_status']] = $key['att_count'];
+		if($result) {
+			foreach ($result as $key) {
+				$monthly[DateTime::createFromFormat('m', $l)->format('M')][$key['att_status']] = $key['att_count'];
+			}
 		}
 	}
-
-	// echo '<pre>';
-	// print_r($monthly);
-	// die();
 ?>
 
 <!DOCTYPE html>

@@ -48,12 +48,14 @@
 			<div class="col-60">
 				<table>
 					<tbody>
-						<?foreach($result as $key):?>
-						<tr>
-							<td><?=$key['emp_name']?></td>
-							<td><?=$key['att_status']?></td>
-						</tr>
-						<?endforeach;?>
+						<?if($result):?>
+							<?foreach($result as $key):?>
+								<tr>
+									<td><?=$key['emp_name']?></td>
+									<td><?=$key['att_status']?></td>
+								</tr>
+							<?endforeach;?>
+						<?endif;?>
 					</tbody>
 				</table>
 			</div>

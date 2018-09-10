@@ -5,55 +5,61 @@ require_once 'Sessions.php';
 
 class Retrieve
 {
-	private static $conn = null;
+	private $conn;
 
 	public function __construct()
 	{
-		self::$conn = DBConnection::connect();
+		$this->conn = DBConnection::connect();
+	}
+
+	public function __destruct()
+	{
+		$this->conn = null;
 	}
 
 	public function retrieveDesignations()
 	{
 		$sql = "SELECT * FROM `Designation`";
-		return self::$conn->query($sql);
+		return $this->conn->query($sql);
 	}
 
 	public function retrieveDepartments()
 	{
 		$sql = "SELECT * FROM `Department`";
-		return self::$conn->query($sql);
+		return $this->conn->query($sql);
 	}
 
 	public function retrieveManagers()
 	{
 		$sql = "SELECT * FROM Employees WHERE desig_id = 2";
-		return self::$conn->query($sql);
+		return $this->conn->query($sql);
 	}
 
-	public function retrieveEmp($emp_id = null)
+	public function retrieveEmp($id = null, $email = null)
 	{
 		$sql = '';
-
-		if($emp_id)
-			$sql = "SELECT * FROM Employees WHERE emp_id = $emp_id;";
+		if($id)
+			$sql = "SELECT * FROM Employees WHERE emp_id = $id;";
+		else if($email)
+			$sql = "SELECT * FROM Employees WHERE emp_email = '$email';";
 		else
-			$sql = "SELECT emp_id, emp_name FROM `Employees`";
+			$sql = "SELECT * FROM Employees";
 
-		return self::$conn->query($sql);
+		return $this->conn->query($sql);
 	}
 
 	public function timeIn($day)
 	{
 		$id = Sessions::getSession();
 		$sql = "SELECT * FROM Attendance WHERE emp_id = $id  AND day = '$day'";
-		return self::$conn->query($sql)->fetch_assoc();
+		return $this->conn->query($sql)->fetch_assoc();
 	}
 
 	public function timeOut($day)
 	{
 		$id = Sessions::getSession();
 		$sql = "SELECT * FROM Attendance WHERE emp_id = $id  AND day = '$day' AND time_out IS NULL";
-		return self::$conn->query($sql)->fetch_assoc();
+		return $this->conn->query($sql)->fetch_assoc();
 	}
 
 	public function retrieveAttendance($day, $id = null)
@@ -67,7 +73,7 @@ class Retrieve
 					FROM Employees e INNER JOIN Attendance a
 					WHERE e.emp_id = a.emp_id AND day LIKE '$day';";
 
-		return self::$conn->query($sql);
+		return $this->conn->query($sql);
 	}
 
 	public function monthlyCount($day) 
@@ -78,6 +84,15 @@ class Retrieve
 				GROUP BY att_status
 				ORDER By att_status";
 
-		return self::$conn->query($sql);
+		return $this->conn->query($sql);
+	}
+
+	public function loginCheck($email = null, $password = null)
+	{
+		$sql = "SELECT *
+				FROM Employees
+				WHERE emp_email = '$email' AND emp_password = '$password'";
+
+		return $this->conn->query($sql);
 	}
 }

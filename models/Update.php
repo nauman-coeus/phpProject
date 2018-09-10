@@ -7,11 +7,12 @@ require_once 'Sessions.php';
 class Update
 {
 	private $conn;
-	private $msg = null;
+	private $msg;
 
 	public function __construct()
 	{
 		$this->conn = DBConnection::connect();
+		$this->msg = null;
 	}
 
 	public function __destruct()
@@ -52,5 +53,10 @@ class Update
 		} else {
 			$this->msg = "You have Already Time Out";
 		}
+	}
+
+	public function updateEmp($name, $email, $salary, $password, $dept, $pic, $boss, $desig)
+	{
+		
 	}
 }

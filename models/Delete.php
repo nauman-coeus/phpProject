@@ -4,8 +4,8 @@ require_once 'DBConnection.php';
 
 class Delete
 {
-	private $conn = null;
-	private $msg = null;
+	private $conn;
+	private $msg;
 
 	public function __construct()
 	{
