@@ -1,12 +1,18 @@
 <?php
 	session_start();
 	require_once '../models/Sessions.php';
+	require_once '../models/Retrieve.php';
 
 	if(!Sessions::getSession())
 		header('location:login.php?err=Please Login');
 
 	if(!Sessions::getRestriction())
 		header('location:markAttendance.php');
+
+	date_default_timezone_set("Asia/Karachi");
+	$day = date('d-m-y');
+	$retrieve = new Retrieve();
+	$result = $retrieve->retrieveAttendance($day);
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +39,8 @@
 				<ul>
 					<li><a href="addEmployee.php">Add Employee</a></li>
 					<li><a href="employeeList.php">Employee's List</a></li>
-					<li class="selected"><a href="#">Today's Attendance</a></li>
+					<li class="selected"><a href="#">Daily Attendance</a></li>
+					<li><a href="monthlyAttendance.php">Monthly Attendance</a></li>
 					<li><a href="../controllers/c_logout.php" id="logoutBtn">LogOut</a></li>
 				</ul>
 			</div>
@@ -41,22 +48,12 @@
 			<div class="col-60">
 				<table>
 					<tbody>
+						<?foreach($result as $key):?>
 						<tr>
-							<td>Nauman</td>
-							<td>A</td>
+							<td><?=$key['emp_name']?></td>
+							<td><?=$key['att_status']?></td>
 						</tr>
-						<tr>
-							<td>Nauman</td>
-							<td>A</td>
-						</tr>
-						<tr>
-							<td>Nauman</td>
-							<td>A</td>
-						</tr>
-						<tr>
-							<td>Nauman</td>
-							<td>A</td>
-						</tr>
+						<?endforeach;?>
 					</tbody>
 				</table>
 			</div>

@@ -10,24 +10,16 @@ if(!Sessions::getSession())
 
 if(!isset($_GET['time_in']) && !isset($_GET['time_out'])) {
 	header('location:../views/markAttendance.php?msg=Please Mark Attendance');
-} 
-else if(isset($_GET['time_in'])) {
+}  else if(isset($_GET['time_in'])) {
 	$create = new Create();
 	$create->addTimeIn();
 	$msg = $create->getMessage();
 
-	if($msg)
-		header("location:../views/markAttendance.php?msg=$msg");
-	else
-		header('location:../views/markAttendance.php?msg=Attendance Marked&time_in=working');
-}
-else {
+	header("location:../views/markAttendance.php?msg=$msg");
+} else {
 	$update = new Update();
 	$update->addTimeOut();
 	$msg = $update->getMessage();
 
-	if($msg)
-		header("location:../views/markAttendance.php?msg=$msg");
-	else
-		header('location:../views/markAttendance.php?msg=Attendance Marked&time_out=working');
+	header("location:../views/markAttendance.php?msg=$msg");
 }

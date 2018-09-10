@@ -41,7 +41,8 @@
 				<ul>
 					<li class="selected"><a href="#">Add Employee</a></li>
 					<li><a href="employeeList.php">Employee's List</a></li>
-					<li><a href="dailyAttendance.php">Today's Attendance</a></li>
+					<li><a href="dailyAttendance.php">Daily Attendance</a></li>
+					<li><a href="monthlyAttendance.php">Monthly Attendance</a></li>
 					<li><a href="../controllers/c_logout.php" id="logoutBtn">LogOut</a></li>
 				</ul>
 			</div>

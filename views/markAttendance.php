@@ -1,6 +1,9 @@
 <?php
 	session_start();
 	require_once '../models/Sessions.php';
+	require_once '../models/Retrieve.php';
+
+	$msg = '';
 
 	if(!Sessions::getSession())
 		header('location:login.php?err=Please Login');
@@ -8,18 +11,12 @@
 	if(Sessions::getRestriction())
 		header('location:addEmployee.php');
 
-	$time_in = '';
-	$time_out = '';
-	$msg = '';
-
 	if(isset($_GET['msg']))
 		$msg = $_GET['msg'];
 
-	if(isset($_GET['time_in'])) 
-		$time_in = $_GET['time_in'];
-
-	if(isset($_GET['time_out'])) 
-		$time_out = $_GET['time_out'];
+	date_default_timezone_set("Asia/Karachi");
+	$retrieve = new Retrieve();
+	$result = $retrieve->retrieveAttendance(date('d-m-y'), Sessions::getSession())->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -48,16 +45,16 @@
 				<form method="GET" action="../controllers/c_markAttendance.php">
 					<input type="submit" value="Mark Time In" class="orangeBtn" name="time_in">
 				</form>
-					<br><br>
-				<h3>Time In : <?=$time_in?></h3>
+				<br><br>
+				<h3>Time In : <?=$result['time_in']?></h3>
 			</div>
 			<hr>
 			<div class="row">
 				<form method="GET" action="../controllers/c_markAttendance.php">
 					<input type="submit" value="Mark Time Out" class="orangeBtn" name="time_out">
 				</form>
-					<br><br>
-					<h3>Time Out : <?=$time_out?></h3>
+				<br><br>
+				<h3>Time Out : <?=$result['time_out']?></h3>
 			</div>
 			<hr>
 			<div class="row">
