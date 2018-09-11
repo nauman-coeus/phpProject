@@ -2,7 +2,7 @@
 
 class Sessions
 {
-	public static function startSession($id=false, $desig=false)
+	public function startSession($id=false, $desig=false)
 	{
 		session_start();
 		$_SESSION['emp_id'] = $id;
@@ -11,7 +11,7 @@ class Sessions
 			$_SESSION['hr'] = true;
 	}
 
-	public static function getSession()
+	public function getSession()
 	{
 		if(isset($_SESSION['emp_id']))
 			return $_SESSION['emp_id'];
@@ -19,7 +19,7 @@ class Sessions
 		return false;
 	}
 
-	public static function getRestriction()
+	public function getRestriction()
 	{
 		if(isset($_SESSION['hr']))
 			return $_SESSION['hr'];
@@ -27,7 +27,7 @@ class Sessions
 		return false;
 	}
 
-	public static function logoutUser()
+	public function logoutUser()
 	{
 		session_unset();
 		session_destroy();

@@ -5,7 +5,9 @@ require_once '../models/Sessions.php';
 require_once '../models/Update.php';
 require_once '../models/Create.php';
 
-if(!Sessions::getSession())
+$session = new Sessions();
+
+if(!$session->getSession())
 	header('location:login.php?err=Please Login');
 
 if(!isset($_GET['time_in']) && !isset($_GET['time_out'])) {

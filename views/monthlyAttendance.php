@@ -3,11 +3,17 @@
 	require_once '../models/Sessions.php';
 	require_once '../models/Retrieve.php';
 
-	if(!Sessions::getSession())
+	$session = new Sessions();
+
+	if(!$session->getSession())
 		header('location:login.php?err=Please Login');
 
-	if(!Sessions::getRestriction())
+	if(!$session->getRestriction())
 		header('location:markAttendance.php');
+
+	$msg = '';
+	if(isset($_GET['msg']))
+		$msg = $_GET['msg'];
 
 	$retrieve = new Retrieve();
 	$monthly = array();
@@ -33,9 +39,12 @@
 	<title>HR | Monthly Attendance</title>
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="js/javascript.js"></script>
+	<script type="text/javascript">
+		var msg = "<?=$msg?>";
+		if(msg) {
+			window.alert(msg);
+		}
+	</script>
 </head>
 <body>
 	<div class="container">

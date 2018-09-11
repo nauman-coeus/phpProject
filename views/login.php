@@ -2,16 +2,17 @@
 	session_start();
 	require_once '../models/Sessions.php';
 
-	if(Sessions::getSession() && Sessions::getRestriction())
+	$session = new Sessions();
+
+	if($session->getSession() && $session->getRestriction())
 		header('location:addEmployee.php');
 	
-	if(Sessions::getSession())
+	if($session->getSession())
 		header('location:markAttendance.php');
 
-	$err = '';
-
+	$msg = '';
 	if(isset($_GET['msg']))
-		$err = $_GET['msg'];
+		$msg = $_GET['msg'];
 ?>
 
 <!DOCTYPE html>
@@ -22,9 +23,12 @@
 	<title>Attendance | Login</title>
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="js/javascript.js"></script>
+	<script type="text/javascript">
+		var msg = "<?=$msg?>";
+		if(msg) {
+			window.alert(msg);
+		}
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -47,7 +51,7 @@
 						<input type="password" name="usr_password" required="required">
 					</div>
 					<div class="row">
-						<h5 class="error text-center"><?=$err;?></h5>	
+						<h5 class="error text-center"><?=$msg;?></h5>	
 					</div>
 					<div class="row">
 						<input type="submit" value="Login" class="orangeBtn" name="loginForm">

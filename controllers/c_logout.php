@@ -1,8 +1,9 @@
 <?php
 
 require_once '../models/Sessions.php';
-
 session_start();
-Sessions::logoutUser();
+
+$session = new Sessions();
+$session->logoutUser();
 
 header('location:../views/login.php');

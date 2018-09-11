@@ -33,8 +33,7 @@ class Delete
 				$this->msg = 'Deletion Successful';
 			else
 				$this->msg = 'Deletion Unsuccessful';
-		}
-		else {
+		} else {
 			$this->msg = 'Deletion Unsuccessful';
 		}
 

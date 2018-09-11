@@ -50,14 +50,16 @@ class Retrieve
 
 	public function timeIn($day)
 	{
-		$id = Sessions::getSession();
+		$session = new Sessions();
+		$id = $session->getSession();
 		$sql = "SELECT * FROM Attendance WHERE emp_id = $id  AND day = '$day'";
 		return $this->conn->query($sql)->fetch_assoc();
 	}
 
 	public function timeOut($day)
 	{
-		$id = Sessions::getSession();
+		$session = new Sessions();
+		$id = $session->getSession();
 		$sql = "SELECT * FROM Attendance WHERE emp_id = $id  AND day = '$day' AND time_out IS NULL";
 		return $this->conn->query($sql)->fetch_assoc();
 	}

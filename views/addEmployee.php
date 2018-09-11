@@ -4,11 +4,17 @@ session_start();
 require_once '../models/Sessions.php';
 require_once '../models/Retrieve.php';
 
-if(!Sessions::getSession())
+$session = new Sessions();
+
+if(!$session->getSession())
 	header('location:login.php?err=Please Login');
 
-if(!Sessions::getRestriction())
+if(!$session->getRestriction())
 	header('location:markAttendance.php');
+
+$msg = '';
+if(isset($_GET['msg']))
+	$msg = $_GET['msg'];
 
 $retireve = new Retrieve();
 
@@ -26,10 +32,14 @@ $emp = $retireve->retrieveManagers();
 	<title>HR | Add Employee</title>
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="js/javascript.js"></script>
+	<script type="text/javascript">
+		var msg = "<?=$msg?>";
+		if(msg) {
+			window.alert(msg);
+		}
+	</script>
 </head>
+
 <body>
 	<div class="container">
 		<section class="row text-center">
@@ -49,63 +59,57 @@ $emp = $retireve->retrieveManagers();
 			</div>
 
 			<div class="col-60">
-				<form action="../controllers/c_addEmp.php" method="POST">
-				<div class="row">
-					<h3>Name</h3>
-					<input type="text">
-				</div>
-				<div class="row">
-					<h3>Email</h3>
-					<input type="edit">
-				</div>
-				<div class="row">
-					<h3>Salary</h3>
-					<input type="number">
-				</div>
-				<div class="row">
-					<h3>Password:</h3>
-					<input type="password" name="emp_password">
-				</div>
-				<div class="row">
-					<h3>Department</h3>
-					<select name="emp_dept">
-						<?php 
-							foreach ($dept as $key) {
-								echo '<option value="'. $key['dept_id'] .'">'. $key['dept_name'] .'</option>';
-							}
-						?>
-					</select>
-				</div>
-				<div class="row">
-					<h3>Profile Picture</h3>
-					<input type="file">
-				</div>
-				<div class="row">
-					<h3>Boss</h3>
-					<select>
-						<option value="null">-- Select --</option>
-						<?php 
-							foreach ($emp as $key) {
-								echo '<option value="'. $key['emp_id'] .'">'. $key['emp_name'] .'</option>';
-							}
-						?>
-					</select>
-				</div>
-				<div class="row">
-					<h3>Designation:</h3>
-					<select name="emp_desig">
-						<?php 
-							foreach ($desig as $key) {
-								echo '<option value="'. $key['desig_id'] .'">'. $key['desig_name'] .'</option>';
-							}
-						?>
-					</select>
-				</div>
-				<hr><br><br>
-
-				<div class="row">
-					<input type="submit" value="Add Employee">
-				</div>
+				<form action="../controllers/c_Emp.php" method="POST" enctype="multipart/form-data">
+					<div class="row">
+						<h3>Name</h3>
+						<input type="text" name="emp_name">
+					</div>
+					<div class="row">
+						<h3>Email</h3>
+						<input type="email" name="emp_email">
+					</div>
+					<div class="row">
+						<h3>Salary</h3>
+						<input type="number" name="emp_salary">
+					</div>
+					<div class="row">
+						<h3>Password:</h3>
+						<input type="password" name="emp_password">
+					</div>
+					<div class="row">
+						<h3>Department</h3>
+						<select name="emp_dept">
+							<?foreach ($dept as $key):?>
+								<option value="<?=$key['dept_id']?>"><?=$key['dept_name']?></option>;
+							<?endforeach;?>
+						</select>
+					</div>
+					<div class="row">
+						<h3>Profile Picture</h3>
+						<input type="file" name="emp_img">
+					</div>
+					<div class="row">
+						<h3>Boss</h3>
+						<select name="emp_boss">
+							<option value="NULL">-- Select --</option>
+							<?foreach ($emp as $key):?>
+								<option value="<?=$key['emp_id']?>"><?=$key['emp_name']?></option>;
+							<?endforeach;?>
+						</select>
+					</div>
+					<div class="row">
+						<h3>Designation:</h3>
+						<select name="emp_desig">
+							<?foreach ($desig as $key):?>
+								<option value="<?=$key['desig_id']?>"><?=$key['desig_name']?></option>
+							<?endforeach;?>
+						</select>
+					</div>
+					<hr><br><br>
+					<div class="row">
+						<input type="submit" value="Add Employee" name="addEmpBtn">
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

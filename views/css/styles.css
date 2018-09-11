@@ -151,13 +151,10 @@ table {
 	width: 100%;
 }
 
+table, tr, td {
+	border: 1px solid black;
+}
+
 table tbody tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-
-	
-
-
-
-
-

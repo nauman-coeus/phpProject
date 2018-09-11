@@ -2,11 +2,12 @@
 
 require_once 'Retrieve.php';
 require_once 'Sessions.php';
+require_once 'Validation.php';
+
 
 class Create
 {
 	private $conn;
-	private $msg;
 
 	public function __construct()
 	{
@@ -34,7 +35,8 @@ class Create
 		$retrieve = new Retrieve();
 
 		if(!$retrieve->timeIn($day)) {
-			$id = Sessions::getSession();
+			$session = new Sessions();
+			$id = $session->getSession();
 			$status = null;
 			
 			if($time < '11:00')
@@ -57,17 +59,33 @@ class Create
 		}
 	}
 
-	public function createEmp($name, $email, $salary, $password, $dept, $pic, $boss, $desig)
+	public function createEmp($name, $email, $salary, $password, $dept, $img, $boss, $desig)
 	{
 		$validate = new Validation();
 		$retrieve = new Retrieve();
 
-		if($retrieve()->retrieveEmp()->fetch_assoc())
+		if($retrieve->retrieveEmp(null, $email)->fetch_assoc())
 			$this->msg = "Email Already Exists";
-		else if(!$validate->empValidation($name, $email, $salary, $password, $dept, $pic, $boss, $desig))
+		else if(!$validate->empValidation($name, $email, $salary, $password, $dept, $img['name'], $boss, $desig))
 			$this->msg = $validate->getMessage();
 		else {
-			
+			$img_name = "NULL";
+
+			if($img['name']) {
+				$img_name = "p-" . $email . "." . pathinfo($img['name'] , PATHINFO_EXTENSION);
+				$path = "../views/images/" . $img_name;
+				move_uploaded_file($img['tmp_name'], $path);
+
+				$sql = "INSERT INTO Employees (emp_name, emp_email, emp_salary, emp_img, emp_password, dept_id, desig_id, boss_id)
+						VALUES('$name', '$email', $salary, '$img_name', '$password', $dept, $desig, $boss)";
+			} else {
+				$sql = "INSERT INTO Employees (emp_name, emp_email, emp_salary, emp_img, emp_password, dept_id, desig_id, boss_id)
+						VALUES('$name', '$email', $salary, $img_name, '$password', $dept, $desig, $boss)";
+			}			
+			if($this->conn->query($sql))
+				$this->msg = "New Employee Insertion Successful";
+			else
+				$this->msg = "! New Employee Insertion Unsuccessful";
 		}
 	}
 }

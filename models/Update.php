@@ -26,11 +26,6 @@ class Update
 		return $this->msg;
 	}
 
-	public function updateEmp($emp_id)
-	{
-		echo $emp_id;
-	}
-
 	public function addTimeout()
 	{
 		date_default_timezone_set("Asia/Karachi");
@@ -40,7 +35,8 @@ class Update
 		$retrieve = new Retrieve();
 
 		if($retrieve->timeOut($day)) {
-			$id = Sessions::getSession();
+			$session = new Sessions();
+			$id = $session->getSession();
 
 			$sql = "UPDATE Attendance
 					SET  time_out = '$time'
@@ -55,8 +51,44 @@ class Update
 		}
 	}
 
-	public function updateEmp($name, $email, $salary, $password, $dept, $pic, $boss, $desig)
+	public function updateEmp($id, $name, $email, $salary, $password, $dept, $img, $boss, $desig)
 	{
-		
+		$validate = new Validation();
+
+		if(is_null($id))
+			$this->msg = "Please Enter Employee ID";
+		else if(!$validate->empValidation($name, $email, $salary, $password, $dept, $img['name'], $boss, $desig))
+			$this->msg = $validate->getMessage();
+		else {
+			$img_name = "NULL";
+			if($img['name']) {
+
+				if(file_exists("../views/images/p-$email.jgp"))
+					unlink("../views/images/p-$email.jgp");
+
+				if(file_exists("../views/images/p-$email.png"))
+					unlink("../views/images/p-$email.png");
+
+				if(file_exists("../views/images/p-$email.png"))
+					unlink("../views/images/p-$email.png");
+
+				$img_name = "p-" . $email . "." . pathinfo($img['name'] , PATHINFO_EXTENSION);
+				$path = "../views/images/" . $img_name;
+				move_uploaded_file($img['tmp_name'], $path);
+
+				$sql = "UPDATE Employees 
+						SET emp_name = '$name', emp_email = '$email', emp_salary = $salary, emp_img = '$img_name', emp_password = '$password', dept_id = $dept, desig_id = $desig, boss_id = $boss
+						WHERE emp_id = $id";
+			} else {
+				$sql = "UPDATE Employees 
+						SET emp_name = '$name', emp_email = '$email', emp_salary = $salary, emp_password = '$password', dept_id = $dept, desig_id = $desig, boss_id = $boss
+						WHERE emp_id = $id";
+			}
+
+			if($this->conn->query($sql))
+				$this->msg = "Updation Successful";
+			else
+				$this->msg = "Updation Unsuccessful";
+		}
 	}
 }
