@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	
 	require_once '../models/Sessions.php';
 	require_once '../models/Retrieve.php';
 

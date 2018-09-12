@@ -97,4 +97,16 @@ class Retrieve
 
 		return $this->conn->query($sql);
 	}
+
+	public function unMarked($day)
+	{
+		$sql = "SELECT *
+				FROM Employees
+				WHERE emp_id NOT IN (
+					SELECT emp_id
+					FROM Attendance
+					WHERE day = '$day' AND att_status IS NOT NULL);";
+
+		return $this->conn->query($sql);
+	}
 }
