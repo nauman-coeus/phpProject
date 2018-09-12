@@ -23,12 +23,6 @@
 	<title>Attendance | Login</title>
 
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<script type="text/javascript">
-		var msg = "<?=$msg?>";
-		if(msg) {
-			window.alert(msg);
-		}
-	</script>
 </head>
 <body>
 	<div class="container">
@@ -44,7 +38,7 @@
 				<form action="../controllers/c_login.php" method="POST">
 					<div class="row">
 						<h3>Email</h3>	
-						<input type="text" name="usr_email" required="required">
+						<input type="email" name="usr_email" required="required">
 					</div>
 					<div class="row">
 						<h3>Password</h3>	

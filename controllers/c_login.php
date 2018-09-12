@@ -14,7 +14,7 @@ $usr_email = $_POST['usr_email'];
 $usr_password = $_POST['usr_password'];
 
 $retrieve = new Retrieve();
-$result = $retrieve->loginCheck($usr_email, $usr_password)->fetch_assoc();
+$result = $retrieve->loginCheck($usr_email, crypt($usr_password, "mysalt123"))->fetch_assoc();
 
 $session = new Sessions();
 

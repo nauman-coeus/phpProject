@@ -57,23 +57,23 @@
 					<input type="hidden" name="emp_id" value="<?=$emp['emp_id']?>">
 					<div class="row">
 						<h3>Name</h3>
-						<input type="text" name="emp_name" value="<?=$emp['emp_name'];?>">
+						<input type="text" name="emp_name" value="<?=$emp['emp_name'];?>" required="required">
 					</div>
 					<div class="row">
 						<h3>Email</h3>
-						<input type="email" name="emp_email" value="<?=$emp['emp_email'];?>">
+						<input type="email" name="emp_email" value="<?=$emp['emp_email'];?>" required="required">
 					</div>
 					<div class="row">
 						<h3>Salary</h3>
-						<input type="number" name="emp_salary" min="20000" value="<?=$emp['emp_salary'];?>">
+						<input type="number" name="emp_salary" min="20000" value="<?=$emp['emp_salary'];?>" required="required">
 					</div>
 					<div class="row">
 						<h3>Password</h3>
-						<input type="password" name="emp_password" value="<?=$emp['emp_password'];?>">
+						<input type="password" name="emp_password" value="<?=$emp['emp_password'];?>" required="required">
 					</div>
 					<div class="row">
 						<h3>Department</h3>
-						<select name="emp_dept">
+						<select name="emp_dept" required="required">
 							<?foreach($dept as $key):?>
 								<option value="<?=$key['dept_id'];?>"><?=$key['dept_name'];?></option>
 							<?endforeach;?>
@@ -94,7 +94,7 @@
 					</div>
 					<div class="row">
 						<h3>Designation:</h3>
-						<select name="emp_desig">
+						<select name="emp_desig" required="required">
 							<?foreach($desig as $key):?>
 								<option value="<?=$key['desig_id']?>"><?=$key['desig_name'];?></option>
 							<?endforeach;?>

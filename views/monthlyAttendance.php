@@ -67,15 +67,15 @@
 
 			<div class="col-60">
 				<div class="row">
-					<div class="col-20">
-						<?foreach($monthly as $key => $value):?>
+					<?foreach($monthly as $key => $value):?>
+						<div class="col-20">
 							<h3 class="text-center"><?=$key?></h3>
 							<hr>
 							<p>L : <?echo (isset($value['L'])) ? $value['L'] : '0'; ?></p>
 							<p>A : <?echo (isset($value['A'])) ? $value['A'] : '0'; ?></p>
 							<p>P : <?echo (isset($value['P'])) ? $value['P'] : '0'; ?></p>
-						<?endforeach;?>
-					</div>
+						</div>
+					<?endforeach;?>
 				</div>
 			</div>
 		</div>

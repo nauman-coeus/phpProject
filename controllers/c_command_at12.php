@@ -15,4 +15,4 @@ foreach($result as $key)
 	$body .= $key['emp_name'] . "<br>";
 
 $body .= "\n\nSincerely, \nCron Job Linux.";
-mail("hr@coeus.de", "Attendance Not Marked", $body);
+mail("nauman.nasir@coeus-solutions.de", "Attendance Not Marked", $body);

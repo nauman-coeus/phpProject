@@ -28,8 +28,8 @@ class Validation
 			$this->flag = false;
 		}
 
-		if(!$salary) {
-			$this->msg .= "-Salary Cant Be Empty";
+		if(!$salary || !filter_var($salary, FILTER_VALIDATE_INT)) {
+			$this->msg .= "-Salary Cant Be Empty And Should Only Be Number";
 			$this->flag = false;
 		}
 
@@ -38,13 +38,13 @@ class Validation
 			$this->flag = false;
 		}
 
-		if(!$dept) {
-			$this->msg .= "-Department Cant Be Empty";
+		if(!$dept || !filter_var($dept, FILTER_VALIDATE_INT)) {
+			$this->msg .= "-Department Cant Be Empty And Should Only Be Number";
 			$this->flag = false;
 		}
 
-		if(!$desig) {
-			$this->msg .= "-Designation Cant Be Empty";
+		if(!$desig || !filter_var($desig, FILTER_VALIDATE_INT)) {
+			$this->msg .= "-Designation Cant Be Empty And Should Only Be Number";
 			$this->flag = false;
 		}
 

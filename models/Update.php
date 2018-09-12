@@ -75,6 +75,7 @@ class Update
 				$img_name = "p-" . $email . "." . pathinfo($img['name'] , PATHINFO_EXTENSION);
 				$path = "../views/images/" . $img_name;
 				move_uploaded_file($img['tmp_name'], $path);
+				$password = crypt($password, "mysalt123");
 
 				$sql = "UPDATE Employees 
 						SET emp_name = '$name', emp_email = '$email', emp_salary = $salary, emp_img = '$img_name', emp_password = '$password', dept_id = $dept, desig_id = $desig, boss_id = $boss
