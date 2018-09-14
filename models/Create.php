@@ -59,6 +59,18 @@ class Create
 		}
 	}
 
+	public function markLate($id)
+	{
+		date_default_timezone_set("Asia/Karachi");
+		$day = date('d-m-y');
+		$time = date('H:i');
+		
+		$sql = "INSERT INTO Attendance (emp_id, att_status, time_in, day)
+				VALUES ($id, 'A', '$time', '$day');";
+
+		$this->conn->query($sql);
+	}
+
 	public function createEmp($name, $email, $salary, $password, $dept, $img, $boss, $desig)
 	{
 		$validate = new Validation();
